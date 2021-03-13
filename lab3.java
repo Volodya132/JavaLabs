@@ -1,18 +1,12 @@
 import java.util.Scanner;
 
-abstract class Solid
+interface Solid
 {
-    abstract double Getvolume();
-    public abstract double GetArea();
-
-    protected static int counter;
-
-    {
-        counter++;
-    }
+    double GetVolume();
+    double GetArea();
 }
 
-class Cube extends Solid
+class Cube implements Solid
 {
     private double A;
 
@@ -25,19 +19,14 @@ class Cube extends Solid
         this.A = A;
     }
 
-    @Override
-    double Getvolume()
-    {
-        return Math.pow(A, 3);
-    }
-
-    @Override public double GetArea()
+    public double GetVolume() { return Math.pow(A, 3); }
+    public double GetArea()
     {
         return this.A * 3;
     }
 }
 
-class RectSolid extends Solid
+class RectSolid implements Solid
 {
     private double width;
     private double length;
@@ -54,13 +43,12 @@ class RectSolid extends Solid
         this.width = width;
         this.length = length;
     }
-    @Override
-    double Getvolume()
+
+    public double GetVolume()
     {
         return width * length * height;
     }
-
-    @Override public double GetArea()
+    public double GetArea()
     {
         return 2*(width*height + height*length + width*length);
     }
@@ -72,16 +60,16 @@ public class lab3 {
     public static void main(String[] argv)
     {
         Scanner scan = new Scanner(System.in);
-        Solid cube;
+        Cube cube;
 
         System.out.println("Введіьть значення сторони куба: ");
         double a1 = scan.nextDouble( );
 
         cube = new Cube(a1);
 
-        System.out.println("Обєм куба: " + cube.Getvolume());
+        System.out.println("Обєм куба: " + cube.GetVolume());
         System.out.println("Периметр куба: " + cube.GetArea());
-        Solid rect;
+        RectSolid rect;
 
         System.out.println("Введіьть значення ширини прямокутного паралепіпеда: ");
         double w = scan.nextDouble( );
@@ -92,11 +80,7 @@ public class lab3 {
 
         rect = new RectSolid(w, l, h);
 
-        System.out.println("Обєм прямокутного паралепіпеда: " + rect.Getvolume());
+        System.out.println("Обєм прямокутного паралепіпеда: " + rect.GetVolume());
         System.out.println("Периметр рямокутного паралепіпеда: " + rect.GetArea());
-        System.out.println("Кількість створених обєктів: " + Solid.counter);
-
     }
-
-
 }
